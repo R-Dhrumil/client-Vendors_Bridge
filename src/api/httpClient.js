@@ -1,13 +1,16 @@
-const API_BASE_URL = import.meta?.env?.VITE_API_BASE_URL || 'https://vendorbridge-by-cybercreatures.onrender.com/api';
+const API_BASE_URL =
+  import.meta?.env?.VITE_API_BASE_URL ||
+  "https://vendorbridge-by-cybercreatures.onrender.com/api";
 
-const getAccessToken = () => localStorage.getItem('vendorbridge.accessToken');
+const getAccessToken = () => localStorage.getItem("vendorbridge.accessToken");
 
 const request = async (path, options = {}) => {
-  const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
+  const isFormData =
+    typeof FormData !== "undefined" && options.body instanceof FormData;
   const headers = isFormData
     ? { ...(options.headers || {}) }
     : {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...(options.headers || {}),
       };
 
@@ -20,13 +23,13 @@ const request = async (path, options = {}) => {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
     headers,
-    credentials: 'include',
+    credentials: "include",
   });
 
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    const message = payload?.message || 'Request failed';
+    const message = payload?.message || "Request failed";
     const error = new Error(message);
     error.status = response.status;
     error.payload = payload;
