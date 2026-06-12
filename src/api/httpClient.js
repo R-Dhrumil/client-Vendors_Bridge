@@ -29,6 +29,22 @@ const request = async (path, options = {}) => {
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
+    // Debug logging for failed requests
+    try {
+      // Show request details
+      // eslint-disable-next-line no-console
+      console.error("API Request Failed:", {
+        url: `${API_BASE_URL}${path}`,
+        method: (options && options.method) || "GET",
+        headers,
+        body: options && options.body,
+        status: response.status,
+        response: payload,
+      });
+    } catch (e) {
+      // ignore logging errors
+    }
+
     const message = payload?.message || "Request failed";
     const error = new Error(message);
     error.status = response.status;
