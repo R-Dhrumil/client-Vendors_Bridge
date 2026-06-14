@@ -1,6 +1,5 @@
 const API_BASE_URL =
-  import.meta?.env?.VITE_API_BASE_URL ||
-  "https://vendorbridge-by-cybercreatures.onrender.com/api";
+  import.meta.env.VITE_API_BASE_URL 
 
 const getAccessToken = () => localStorage.getItem("vendorbridge.accessToken");
 

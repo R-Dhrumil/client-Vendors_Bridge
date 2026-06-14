@@ -30,6 +30,7 @@ import {
   ResponsiveContainer,
   Legend
 } from 'recharts';
+import { API_BASE_URL } from '../api/httpClient';
 
 const chartColors = ['#264dd9', '#6647c3', '#006a38', '#4568f3', '#9c7ffd'];
 
@@ -76,7 +77,7 @@ const ReportsPage = () => {
     setSuccess('');
     try {
       const token = localStorage.getItem('vendorbridge.accessToken');
-      const response = await fetch(`http://localhost:5000/api/reports/export?type=${type}&format=${format}`, {
+      const response = await fetch(`${API_BASE_URL}/reports/export?type=${type}&format=${format}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
