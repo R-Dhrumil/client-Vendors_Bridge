@@ -11,6 +11,11 @@ const LoginPage = () => {
   const [form, setForm] = useState({ email: '', password: '', deviceName: 'Web' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const autofill = (email, password) => {
+    setForm({ email, password, deviceName: 'Web' });
+  };
 
   const submit = async (event) => {
     event.preventDefault();
@@ -33,7 +38,132 @@ const LoginPage = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
+      <div className="auth-card" style={{ position: 'relative' }}>
+        {/* Testing Info Click Button */}
+        <div 
+          style={{ 
+            position: 'absolute', 
+            top: '16px', 
+            right: '16px', 
+            zIndex: 100
+          }}
+        >
+          <div 
+            onClick={() => setShowTooltip(!showTooltip)}
+            style={{
+              width: '24px',
+              height: '24px',
+              borderRadius: '50%',
+              backgroundColor: '#0066cc',
+              color: '#ffffff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '0.85rem',
+              fontWeight: 'bold',
+              fontStyle: 'italic',
+              cursor: 'pointer',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+              userSelect: 'none'
+            }}
+          >
+            i
+          </div>
+
+          {showTooltip && (
+            <div style={{
+              position: 'absolute',
+              top: '30px',
+              right: '0',
+              width: '280px',
+              backgroundColor: '#1e293b',
+              color: '#ffffff',
+              padding: '16px',
+              borderRadius: '8px',
+              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15)',
+              fontSize: '0.8rem',
+              lineHeight: '1.4',
+              zIndex: 9999
+            }}>
+              <div style={{ 
+                fontWeight: 'bold', 
+                marginBottom: '10px', 
+                borderBottom: '1px solid #475569', 
+                paddingBottom: '6px', 
+                color: '#38bdf8',
+                fontSize: '0.85rem'
+              }}>
+                Testing Credentials (Click to autofill)
+              </div>
+              
+              {/* Admin Credential */}
+              <div 
+                onClick={() => {
+                  autofill('kunj@gmail.com', '123456789');
+                  setShowTooltip(false);
+                }}
+                style={{ 
+                  marginBottom: '8px', 
+                  cursor: 'pointer', 
+                  padding: '8px', 
+                  borderRadius: '4px', 
+                  backgroundColor: '#334155',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#475569'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#334155'}
+              >
+                <div style={{ fontWeight: '600', color: '#7dd3fc' }}>Admin</div>
+                <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Email: kunj@gmail.com</div>
+                <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Pass: 123456789</div>
+              </div>
+
+              {/* Procurement Officer Credential */}
+              <div 
+                onClick={() => {
+                  autofill('procuretator@gmail.com', 'Test@123');
+                  setShowTooltip(false);
+                }}
+                style={{ 
+                  marginBottom: '8px', 
+                  cursor: 'pointer', 
+                  padding: '8px', 
+                  borderRadius: '4px', 
+                  backgroundColor: '#334155',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#475569'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#334155'}
+              >
+                <div style={{ fontWeight: '600', color: '#7dd3fc' }}>Procurement Officer</div>
+                <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Email: procuretator@gmail.com</div>
+                <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Pass: Test@123</div>
+              </div>
+
+              {/* Vendor Credential */}
+              <div 
+                onClick={() => {
+                  autofill('vendor@gmail.com', 'Test@123');
+                  setShowTooltip(false);
+                }}
+                style={{ 
+                  cursor: 'pointer', 
+                  padding: '8px', 
+                  borderRadius: '4px', 
+                  backgroundColor: '#334155',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#475569'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#334155'}
+              >
+                <div style={{ fontWeight: '600', color: '#7dd3fc' }}>Vendor</div>
+                <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Email: vendor@gmail.com</div>
+                <div style={{ fontSize: '0.75rem', color: '#cbd5e1' }}>Pass: Test@123</div>
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="auth-header">
           <div className="auth-logo">VB</div>
           <h1 className="auth-title">Welcome Back</h1>
